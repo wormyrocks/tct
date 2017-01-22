@@ -62,7 +62,7 @@ void setup() {
     Serial.print("Outputs: ");
     while (j < NUM_OUTPUTS){
       uint16_t a = (i * NUM_OUTPUTS+j) >> 3;
-      digitalWrite(outputs[j], output_vals[a] & out_mask);
+//      digitalWrite(outputs[j], output_vals[a] & out_mask);
       Serial.print((output_vals[a] & out_mask) ? "1" : "0");
       out_mask = out_mask >> 1;
       if (out_mask == 0) out_mask = 0x80;
