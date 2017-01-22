@@ -1,0 +1,13 @@
+#define NUM_STEPS 5
+
+const byte PROGMEM input_vals [] = {
+  0b00000101, 0b00111000
+};
+
+const byte PROGMEM output_vals [] = {
+  0b00000000, 0b00000000,
+  0b00000000, 0b00000001,
+  0b00000000, 0b00000010,
+  0b00000000, 0b00000011,
+  0b00000000, 0b00000100
+};

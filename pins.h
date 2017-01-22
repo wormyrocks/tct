@@ -10,8 +10,8 @@
 #define P10 14
 #define P11 13
 #define P12 33
-#define P13 A22
-#define P14 A21
+#define P13 0
+#define P14 1
 #define P15 39
 #define P16 38
 #define P17 37
