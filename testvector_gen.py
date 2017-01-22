@@ -47,17 +47,29 @@ board1 = [
 [0,0,0,0,0,0,0,0],
 ]
 
-iters = 10
-
+iters = 40
 
 print "#define NUM_STEPS "+str(iters)
 print "const byte PROGMEM input_vals[] = {"
+input_vals = []
+for i in range (0,9): input_vals.append(0)
 
-print "}"
+input_vals[5]=1
+
+for i in range (1,10):
+    input_vals.append(i%2)
+    input_vals.append(1-i%2)
+    input_vals.append(0)
+arr = numpy.packbits(input_vals)
+for e in arr[:-1]:
+    print hex(e)+",",
+print hex(arr[-1])
+print "};"
 
 print "const byte PROGMEM output_vals[] = {"
+print "0x0, 0x0, 0x0, 0x0, 0x0, 0x0,"
 for i in range (iters):
     print_tv()
     board = update_board()
     if i != iters - 1 : print ","
-print "\n}"
+print "\n};"
