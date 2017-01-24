@@ -56,7 +56,7 @@ for i in range (0,9): input_vals.append(0)
 
 input_vals[5]=1
 
-for i in range (1,iters):
+for i in range (1,iters*len(board)):
     input_vals.append(i%2)
     input_vals.append(1-i%2)
     input_vals.append(0)
