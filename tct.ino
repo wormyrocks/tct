@@ -2,25 +2,24 @@
 #include "data.h"
 #include "config.h"
 
+bool read_outputs[NUM_OUTPUTS];
+bool check_outputs[NUM_OUTPUTS];
+bool read_inputs[NUM_INPUTS];
+   
 void setup() {
   Serial.begin(9600);
-  delay(1000);
+  delay(500);
   //general purpose iterators
   uint16_t i = 0;
   unsigned long dt = 0;
   
   init_pins();
   
-  delay(300);
   uint8_t inp_mask = 0x80;
   uint8_t out_mask = 0x80;
   uint32_t err_count = 0;
   
   while (i < NUM_STEPS){
-    bool read_outputs[NUM_OUTPUTS];
-    bool check_outputs[NUM_OUTPUTS];
-    bool read_inputs[NUM_INPUTS];
-    
     uint32_t j = 0;
     
     while (j < NUM_INPUTS){
