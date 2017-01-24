@@ -2,11 +2,9 @@
 #include "data.h"
 #include "config.h"
 
-
-
 void setup() {
   Serial.begin(9600);
-
+  delay(1000);
   //general purpose iterators
   uint16_t i = 0;
   unsigned long dt = 0;
@@ -14,23 +12,21 @@ void setup() {
   init_pins();
   
   delay(300);
-  
   uint8_t inp_mask = 0x80;
   uint8_t out_mask = 0x80;
   uint32_t err_count = 0;
   
   while (i < NUM_STEPS){
-    
-    byte read_outputs[NUM_OUTPUTS];
-    byte check_outputs[NUM_OUTPUTS];
-    byte read_inputs[NUM_INPUTS];
+    bool read_outputs[NUM_OUTPUTS];
+    bool check_outputs[NUM_OUTPUTS];
+    bool read_inputs[NUM_INPUTS];
     
     uint32_t j = 0;
     
     while (j < NUM_INPUTS){
       uint16_t a = (i * NUM_INPUTS + j) >> 3;
       digitalWrite(inputs[j], input_vals[a] & inp_mask);
-      read_inputs[j] = input_vals[a] & inp_mask;
+      read_inputs[j] = (input_vals[a] & inp_mask) ? 1 : 0;
       inp_mask = inp_mask >> 1;
       if (inp_mask == 0) inp_mask = 0x80;
       ++j;
@@ -45,7 +41,7 @@ void setup() {
     
     while (j < NUM_OUTPUTS){
       uint16_t a = (i * NUM_OUTPUTS + j) >> 3;
-      check_outputs[j] = output_vals[a] & out_mask;
+      check_outputs[j] = (output_vals[a] & out_mask) ? 1 : 0;
       out_mask = out_mask >> 1;
       if (out_mask == 0) out_mask = 0x80;
       read_outputs[j] = digitalRead(outputs[j]);
@@ -61,23 +57,34 @@ void setup() {
       Serial.print("Inputs: ");
       while (j < NUM_INPUTS){
         Serial.print(read_inputs[j]);
+        ++j;
       }
+      j=0;
       Serial.print("\nExpected outputs: ");
       while (j < NUM_OUTPUTS){
-        Serial.print(read_outputs[j]);
+        Serial.print(check_outputs[j]);
+        ++j;
       }
+      j=0;
       Serial.print("\nActual outputs:   ");
       while (j < NUM_OUTPUTS){
-        Serial.print(check_outputs[j]);
+        Serial.print(read_outputs[j]);
+        ++j;
       }
+      j=0;
       Serial.println();
       ++err_count;
     }
-    ++i;
+    i = i + 1;
   }
   Serial.print("Test completed with ");
   Serial.print(err_count);
   Serial.println(" errors.");
+  i=0;
+  while (i < NUM_POWERS){
+    digitalWrite(powers[i], 0);
+    ++i;
+  }
 }
 
 void init_pins(){
@@ -102,8 +109,8 @@ void init_pins(){
   while (i < NUM_POWERS){
     pinMode(powers[i], OUTPUT);
     digitalWrite(powers[i], 1);
+    ++i;
   }
-  i = 0;
 }
 
 void loop(){}

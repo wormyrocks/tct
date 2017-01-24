@@ -1,4 +1,4 @@
-#define NUM_STEPS 40
+#define NUM_STEPS 323
 const byte PROGMEM input_vals[] = {
 0x4, 0x45, 0x14, 0x51, 0x40
 };
