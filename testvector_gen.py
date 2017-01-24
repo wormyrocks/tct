@@ -49,14 +49,14 @@ board1 = [
 
 iters = 40
 
-print "#define NUM_STEPS "+str(iters*len(board))
+print "#define NUM_STEPS "+str(iters*len(board)+3)
 print "const byte PROGMEM input_vals[] = {"
 input_vals = []
 for i in range (0,9): input_vals.append(0)
 
 input_vals[5]=1
 
-for i in range (1,iters*len(board)):
+for i in range (0,iters*len(board)):
     input_vals.append(i%2)
     input_vals.append(1-i%2)
     input_vals.append(0)

@@ -50,7 +50,7 @@ void setup() {
     }
     j = 0;
     
-    if (check){
+//    if (check){
       Serial.print("Discrepancy on step: ");
       Serial.print(i);
       Serial.println(".");
@@ -74,7 +74,7 @@ void setup() {
       j=0;
       Serial.println();
       ++err_count;
-    }
+//    }
     i = i + 1;
   }
   Serial.print("Test completed with ");
