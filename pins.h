@@ -9,10 +9,10 @@
 #define P9 15
 #define P10 14
 #define P11 13
-#define P12 33
-#define P13 0
-#define P14 1
-#define P15 39
+#define P12 51
+#define P13 53
+#define P14 52
+#define P15 33 /// I accidentally cut the trace on my board!
 #define P16 38
 #define P17 37
 #define P18 36
@@ -27,7 +27,7 @@
 #define P26 26
 #define P27 25
 #define P28 24
-#define P29 32
+#define P29 40
 #define P30 12
 #define P31 11
 #define P32 10
