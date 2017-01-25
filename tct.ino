@@ -5,10 +5,41 @@
 bool read_outputs[NUM_OUTPUTS];
 bool check_outputs[NUM_OUTPUTS];
 bool read_inputs[NUM_INPUTS];
-   
+
 void setup() {
   Serial.begin(9600);
-  delay(500);
+}
+
+void init_pins(){
+  uint8_t i = 0;
+  while (i < NUM_GROUNDS){
+    pinMode(grounds[i], OUTPUT);
+    digitalWrite(grounds[i], 0);
+    ++i;
+  }
+  i = 0;
+  while (i < NUM_INPUTS){
+    pinMode(inputs[i], INPUT);
+    ++i;
+  }
+  i = 0;
+  while (i < NUM_OUTPUTS){
+    pinMode(outputs[i], OUTPUT);
+    digitalWrite(outputs[i], 0);
+    ++i;
+  }
+  i = 0;
+
+  while (i < NUM_POWERS){
+    pinMode(powers[i], OUTPUT);
+    digitalWrite(powers[i], 1);
+    ++i;
+  }
+}
+
+void loop(){
+  while (Serial.available() == 0){}
+  Serial.read();
   //general purpose iterators
   uint16_t i = 0;
   unsigned long dt = 0;
@@ -83,33 +114,5 @@ void setup() {
   while (i < NUM_POWERS){
     digitalWrite(powers[i], 0);
     ++i;
-  }
+  }  
 }
-
-void init_pins(){
-  uint8_t i = 0;
-  while (i < NUM_INPUTS){
-    pinMode(inputs[i], INPUT);
-    ++i;
-  }
-  i = 0;
-  while (i < NUM_OUTPUTS){
-    pinMode(outputs[i], OUTPUT);
-    digitalWrite(outputs[i], 0);
-    ++i;
-  }
-  i = 0;
-  while (i < NUM_GROUNDS){
-    pinMode(grounds[i], OUTPUT);
-    digitalWrite(grounds[i], 0);
-    ++i;
-  }
-  i = 0;
-  while (i < NUM_POWERS){
-    pinMode(powers[i], OUTPUT);
-    digitalWrite(powers[i], 1);
-    ++i;
-  }
-}
-
-void loop(){}
