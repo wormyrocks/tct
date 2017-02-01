@@ -6,37 +6,40 @@ bool read_outputs[NUM_OUTPUTS];
 bool check_outputs[NUM_OUTPUTS];
 bool read_inputs[NUM_INPUTS];
 
+
 void setup() {
   Serial.begin(9600);
 }
 
 void init_pins(){
   uint8_t i = 0;
-  while (i < NUM_GROUNDS){
-    pinMode(grounds[i], OUTPUT);
-    digitalWrite(grounds[i], 0);
-    ++i;
-  }
-  i = 0;
   while (i < NUM_INPUTS){
-    pinMode(inputs[i], INPUT);
+    pinMode(inputs[i], OUTPUT);
     ++i;
   }
   i = 0;
   while (i < NUM_OUTPUTS){
-    pinMode(outputs[i], OUTPUT);
+    pinMode(outputs[i], INPUT);
     digitalWrite(outputs[i], 0);
     ++i;
   }
   i = 0;
 
-  while (i < NUM_POWERS){
-    pinMode(powers[i], OUTPUT);
-    digitalWrite(powers[i], 1);
-    ++i;
-  }
 }
-
+void phase1(){
+    digitalWrite(inputs[0], LOW);
+    digitalWrite(inputs[1], LOW);
+    delay(1);
+    digitalWrite(inputs[0], HIGH);
+    delay(4);
+}
+void phase2(){
+    digitalWrite(inputs[0], LOW);
+    delay(1);
+    digitalWrite(inputs[1], HIGH);
+    delay(4);
+    digitalWrite(inputs[1], LOW);
+}
 void loop(){
   while (Serial.available() == 0){}
   Serial.read();
@@ -49,24 +52,21 @@ void loop(){
   uint8_t inp_mask = 0x80;
   uint8_t out_mask = 0x80;
   uint32_t err_count = 0;
-  
+  digitalWrite(inputs[2], HIGH);
+  delay(200);
+//  phase1();
+//  phase2();
+//  digitalWrite(inputs[2], LOW);
+
   while (i < NUM_STEPS){
     uint32_t j = 0;
-    
-    while (j < NUM_INPUTS){
-      uint16_t a = (i * NUM_INPUTS + j) >> 3;
-      digitalWrite(inputs[j], input_vals[a] & inp_mask);
-      read_inputs[j] = (input_vals[a] & inp_mask) ? 1 : 0;
-      inp_mask = inp_mask >> 1;
-      if (inp_mask == 0) inp_mask = 0x80;
-      ++j;
-    }
-    
+ 
+    phase1();
+    phase2();
+      digitalWrite(inputs[2], LOW);
+
     j = 0;
-    
-    while (millis() < dt) {}
-    dt = millis() + STEP_MS;
-    
+
     byte check = 0;
     
     while (j < NUM_OUTPUTS){
@@ -79,6 +79,9 @@ void loop(){
       ++j;
     }
     j = 0;
+    
+    while (millis() < dt) {}
+    dt = millis() + STEP_MS;    
     
     if (check){
       Serial.print("Discrepancy on step: ");
@@ -111,8 +114,8 @@ void loop(){
   Serial.print(err_count);
   Serial.println(" errors.");
   i=0;
-  while (i < NUM_POWERS){
-    digitalWrite(powers[i], 0);
-    ++i;
-  }  
+//  while (i < NUM_POWERS){
+//    digitalWrite(powers[i], 0);
+//    ++i;
+//  }  
 }

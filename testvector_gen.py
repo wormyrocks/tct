@@ -22,7 +22,7 @@ def print_board():
 def print_tv():
     for a in range(len(board)):
 	sys.stdout.write(hex(1<<a)+", ")
-        sys.stdout.write(hex(numpy.packbits(board[a]))),
+        sys.stdout.write(hex(numpy.invert(numpy.packbits(board[a])))),
 	if a != len(board) - 1: print ", ",
 
 board = [
@@ -67,7 +67,7 @@ print hex(arr[-1])
 print "};"
 
 print "const byte PROGMEM output_vals[] = {"
-print "0x0, 0x0, 0x0, 0x0, 0x0, 0x0,"
+#print "0x0, 0x0, 0x0, 0x0, 0x0, 0x0,"
 for i in range (iters):
     print_tv()
     board = update_board()
