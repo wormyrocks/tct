@@ -9,4 +9,4 @@
 //const uint8_t grounds[] = {P2, P4, P6, P10, P12, P14, P16, P35, P36, P38, P40};
 const uint8_t inputs[] = {P8, P9, P3}; // clk1, clk2, reset
 const uint8_t outputs[] = {P18, P19, P20, P21, P22, P23, P24, P25,
-                          P26, P27, P28, P29, P30, P31, P32, P33}; // anodes, then cathodes
+                          P33, P32, P31, P30, P29, P28, P27, P26}; // anodes, then cathodes

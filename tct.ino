@@ -6,7 +6,6 @@ bool read_outputs[NUM_OUTPUTS];
 bool check_outputs[NUM_OUTPUTS];
 bool read_inputs[NUM_INPUTS];
 
-
 void setup() {
   Serial.begin(9600);
 }
@@ -63,7 +62,7 @@ void loop(){
  
     phase1();
     phase2();
-      digitalWrite(inputs[2], LOW);
+    digitalWrite(inputs[2], LOW);
 
     j = 0;
 
@@ -72,11 +71,11 @@ void loop(){
     while (j < NUM_OUTPUTS){
       uint16_t a = (i * NUM_OUTPUTS + j) >> 3;
       check_outputs[j] = (output_vals[a] & out_mask) ? 1 : 0;
-      out_mask = out_mask >> 1;
-      if (out_mask == 0) out_mask = 0x80;
       read_outputs[j] = digitalRead(outputs[j]);
       if (read_outputs[j] != check_outputs[j]) check = 1;
       ++j;
+      if (out_mask == 1) out_mask = 0x80;
+      else out_mask = out_mask >> 1;
     }
     j = 0;
     
@@ -105,7 +104,6 @@ void loop(){
         ++j;
       }
       j=0;
-      Serial.println();
       ++err_count;
     }
     ++i;
