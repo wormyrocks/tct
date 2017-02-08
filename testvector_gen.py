@@ -21,9 +21,9 @@ def print_board():
     
 def print_tv():
     for a in range(len(board)):
-	sys.stdout.write(bin(1<<(a))+", ")
+        sys.stdout.write(bin(1<<(a))+", ")
         sys.stdout.write(bin(numpy.invert(numpy.packbits(board[a])))),
-	if a != len(board) - 1: print ", ",
+        if a != len(board) - 1: print ", ",
 
 board = [
 [0,0,0,1,1,0,0,0],
@@ -49,7 +49,7 @@ board1 = [
 
 iters = 40
 
-print "#define NUM_STEPS "+str(iters*len(board)+3)
+print "#define NUM_STEPS "+str(iters*len(board)*8)
 print "const byte PROGMEM input_vals[] = {"
 input_vals = []
 for i in range (0,9): input_vals.append(0)
@@ -68,7 +68,8 @@ print "};"
 
 print "const byte PROGMEM output_vals[] = {"
 for i in range (iters):
-    print_tv()
+    for j in range(0,8):
+        print_tv()
+        print ","
     board = update_board()
-    if i != iters - 1 : print ","
 print "\n};"

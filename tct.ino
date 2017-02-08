@@ -53,20 +53,19 @@ void loop(){
   uint32_t err_count = 0;
   digitalWrite(inputs[2], HIGH);
   delay(200);
-//  phase1();
-//  phase2();
-//  digitalWrite(inputs[2], LOW);
+  phase1();
+  phase2();
+  digitalWrite(inputs[2], LOW);
+  delay(200);
 
   while (i < NUM_STEPS){
     uint32_t j = 0;
  
-    phase1();
-    phase2();
-    digitalWrite(inputs[2], LOW);
-
     j = 0;
 
     byte check = 0;
+    
+    phase1();
     
     while (j < NUM_OUTPUTS){
       uint16_t a = (i * NUM_OUTPUTS + j) >> 3;
@@ -78,14 +77,19 @@ void loop(){
       else out_mask = out_mask >> 1;
     }
     j = 0;
+
+    phase2();
+
     
     while (millis() < dt) {}
     dt = millis() + STEP_MS;    
     
     if (check){
-      Serial.print("Discrepancy on step: ");
+      Serial.print("\nDiscrepancy on step: ");
       Serial.print(i);
       Serial.println(".");
+      Serial.print("Out_mask:");
+      Serial.println(out_mask);
       Serial.print("Inputs: ");
       while (j < NUM_INPUTS){
         Serial.print(read_inputs[j]);
