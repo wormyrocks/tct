@@ -384,22 +384,6 @@ Wire Wire Line
 	9550 5150 9900 5150
 Wire Wire Line
 	9550 5250 9900 5250
-Text Label 9900 5250 0    60   ~ 0
-c1
-Text Label 9900 5150 0    60   ~ 0
-c2
-Text Label 9900 5050 0    60   ~ 0
-c3
-Text Label 9900 4950 0    60   ~ 0
-c4
-Text Label 9900 4850 0    60   ~ 0
-c5
-Text Label 9900 4750 0    60   ~ 0
-c6
-Text Label 9900 4650 0    60   ~ 0
-c7
-Text Label 9900 4550 0    60   ~ 0
-c8
 Wire Wire Line
 	7150 2800 6700 2800
 Wire Wire Line
@@ -522,4 +506,20 @@ Text Label 9900 2050 0    60   ~ 0
 c7
 Text Label 9900 2150 0    60   ~ 0
 c8
+Text Label 9900 4550 0    60   ~ 0
+c8
+Text Label 9900 4650 0    60   ~ 0
+c7
+Text Label 9900 4750 0    60   ~ 0
+c6
+Text Label 9900 4850 0    60   ~ 0
+c5
+Text Label 9900 4950 0    60   ~ 0
+c4
+Text Label 9900 5050 0    60   ~ 0
+c3
+Text Label 9900 5150 0    60   ~ 0
+c2
+Text Label 9900 5250 0    60   ~ 0
+c1
 $EndSCHEMATC
