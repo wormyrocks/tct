@@ -1,4 +1,4 @@
-#define STEP_MS 1
+#define STEP_US 10
 
 #define NUM_INPUTS 3
 #define NUM_OUTPUTS 16
